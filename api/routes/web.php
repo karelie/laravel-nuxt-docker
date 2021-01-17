@@ -14,4 +14,5 @@ use App\Http\Controllers\ApiController;
 |
 */
 
-Route::get('api/works', [ApiController::class, 'work']);
+Route::get('api/works', [ApiController::class, 'works']);
+Route::get('api/work/{work:id}', [ApiController::class, 'work']);

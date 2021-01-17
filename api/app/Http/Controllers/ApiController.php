@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 
 class ApiController extends Controller
 {
-      public function work()
+      public function works()
     {
 
     // if ($works = Redis::get('works.all')) {
@@ -26,12 +26,19 @@ class ApiController extends Controller
     // return $works;
 
     $currentPage = request()->get('page',1);
-
-
     return Cache::remember('works.all-' . $currentPage, 60 * 60 * 24, function () { 
         return Work::with('users')->paginate(16); 
     }); 
 
+    }
+
+    public function work(Work $work)
+    {
+
+    $id = $work->id;
+    return Cache::remember('work.id-' . $id, 60 * 60 * 24, function () use ($id) { 
+        return Work::with('users')->get()->find($id);
+    }); 
     }
 }
 
