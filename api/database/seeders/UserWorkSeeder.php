@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\UserWork;
 use Illuminate\Database\Seeder;
 
 class UserWorkSeeder extends Seeder
@@ -13,6 +14,6 @@ class UserWorkSeeder extends Seeder
      */
     public function run()
     {
-        //
+        UserWork::factory()->count(300)->create();
     }
 }
