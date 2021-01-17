@@ -14,6 +14,6 @@ class UserWorkSeeder extends Seeder
      */
     public function run()
     {
-        UserWork::factory()->count(150)->create();
+        UserWork::factory()->count(250)->create();
     }
 }
