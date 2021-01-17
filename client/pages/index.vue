@@ -11,7 +11,7 @@
         >
           <article class="rounded-lg shadow-lg">
             <nuxt-link
-              :to="{ name: 'works-id', params: { id: work.id } }"
+              :to="{ name: 'work-id', params: { id: work.id } }"
               class="block w-full relative"
             >
               <img
