@@ -25,10 +25,11 @@ class ApiController extends Controller
     // return all posts
     // return $works;
 
-    
+    $currentPage = request()->get('page',1);
 
-    return Cache::remember('works.all', 60 * 60 * 24, function () { 
-        return Work::all(); 
+
+    return Cache::remember('works.all-' . $currentPage, 60 * 60 * 24, function () { 
+        return Work::with('users')->paginate(16); 
     }); 
 
     }
