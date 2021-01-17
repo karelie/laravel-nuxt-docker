@@ -10,7 +10,10 @@
           class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3 xl:w-1/4"
         >
           <article class="rounded-lg shadow-lg">
-            <nuxt-link to="/user/" class="block w-full relative">
+            <nuxt-link
+              :to="{ name: 'works-id', params: { id: work.id } }"
+              class="block w-full relative"
+            >
               <img
                 alt="Placeholder"
                 class="block h-auto w-full"
