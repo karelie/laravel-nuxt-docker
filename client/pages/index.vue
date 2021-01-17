@@ -59,11 +59,10 @@
                           :key="`work-${work.id}-user-${user.id}`"
                           class=""
                         >
-                          <a
+                          <nuxt-link
+                            :to="{ name: 'user-id', params: { id: user.id } }"
                             class="rounded-t py-2 px-4 block whitespace-no-wrap"
-                            href="#"
-                          >
-                            {{ user.name }}</a
+                            >{{ user.name }}</nuxt-link
                           >
                         </li>
                       </ul>
@@ -72,7 +71,11 @@
                 </template>
                 <template v-else>
                   <li v-for="user in work.users" :key="user.id">
-                    {{ user.name }}
+                    <nuxt-link
+                      :to="{ name: 'user-id', params: { id: user.id } }"
+                      class="rounded-t py-2 px-4 block whitespace-no-wrap"
+                      >{{ user.name }}</nuxt-link
+                    >
                   </li>
                 </template>
               </p>
