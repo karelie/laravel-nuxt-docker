@@ -40,5 +40,15 @@ class ApiController extends Controller
         return Work::with('users')->get()->find($id);
     }); 
     }
+
+
+    public function user(User $user)
+    {
+
+    $id = $user->id;
+    return Cache::remember('user.id-' . $id, 60 * 60 * 24, function () use ($id) { 
+        return User::with('work')->get()->find($id);
+    }); 
+    }
 }
 
