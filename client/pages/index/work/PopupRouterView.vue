@@ -1,10 +1,8 @@
 <template>
-  <Portal to="popup">
-    <PopupBase :label="label" @close="$router.back()">
-      <slot name="backdrop" slot="backdrop" />
-      <slot />
-    </PopupBase>
-  </Portal>
+  <PopupBase :label="label" @close="$router.back()">
+    <slot name="backdrop" slot="backdrop" />
+    <slot />
+  </PopupBase>
 </template>
 
 <script>

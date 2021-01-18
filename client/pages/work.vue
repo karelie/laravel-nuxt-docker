@@ -97,14 +97,14 @@ import axios from "axios";
 //   require("external_library");
 // }
 export default {
+  components: {
+    InfiniteLoading,
+  },
   data() {
     return {
       page: 1,
       works: [],
     };
-  },
-  components: {
-    InfiniteLoading,
   },
   methods: {
     infiniteHandler($state) {
