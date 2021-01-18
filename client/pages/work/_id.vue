@@ -1,36 +1,43 @@
 <template>
-  <div>
-    <h1>{{ work.title }}</h1>
-    <nuxt-link to="/">Index</nuxt-link>
-
-    <ul class="">
-      <li
-        v-for="user in work.users"
-        :key="`work-${work.id}-user-${user.id}`"
-        class=""
-      >
-        <nuxt-link
-          :to="{ name: 'user-id', params: { id: user.id } }"
-          class="rounded-t py-2 px-4 block whitespace-no-wrap"
-          >{{ user.name }}</nuxt-link
-        >
-      </li>
-    </ul>
-  </div>
+  <PopupRouterView :label="product.name">
+    <PopupOverlay slot="backdrop" />
+    <PopupLightbox>
+      <img
+        v-if="product.img"
+        :src="product.img.src"
+        :alt="product.img.description"
+      />
+    </PopupLightbox>
+  </PopupRouterView>
 </template>
 
 <script>
+import PopupLightbox from "./PopupLightbox.vue";
+import PopupOverlay from "./PopupOverlay.vue";
+import PopupRouterView from "./PopupRouterView.vue";
+
 export default {
-  head() {
+  name: "ProductImagePopup",
+  components: {
+    PopupLightbox,
+    PopupOverlay,
+    PopupRouterView,
+  },
+  data() {
     return {
-      title: this.work.title,
+      product: {},
     };
   },
-  async asyncData(context) {
-    const id = context.params.id;
-    const work = await context.$axios.$get("/api/work/" + id);
-    return { work };
+  created() {
+    // Usually you would fetch the product from an API.
+    this.product = {
+      name: "Fancy Product",
+      img: {
+        src:
+          "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2789&q=80",
+        description: "Simple white watch on white background.",
+      },
+    };
   },
 };
 </script>
-
