@@ -92,6 +92,9 @@
 <script>
 import InfiniteLoading from "vue-infinite-loading";
 import axios from "axios";
+// if (process.client) {
+//   require("external_library");
+// }
 export default {
   data() {
     return {
