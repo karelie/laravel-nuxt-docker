@@ -27,7 +27,7 @@ class ApiController extends Controller
 
     $currentPage = request()->get('page',1);
     return Cache::remember('works.all-' . $currentPage, 60 * 60 * 24, function () { 
-        return Work::with('users')->paginate(16); 
+        return Work::with('users')->paginate(21); 
     }); 
 
     }
