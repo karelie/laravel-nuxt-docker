@@ -2,6 +2,12 @@
   <PopupRouterView :label="product.name">
     <PopupOverlay slot="backdrop" />
     <PopupLightbox>
+      <h1 class="text-white">{{ this.work.title }}</h1>
+      <img
+        v-if="product.img"
+        :src="product.img.src"
+        :alt="product.img.description"
+      />
       <img
         v-if="product.img"
         :src="product.img.src"
@@ -23,10 +29,24 @@ export default {
     PopupOverlay,
     PopupRouterView,
   },
+  head() {
+    return {
+      title: this.work.title,
+    };
+  },
+
   data() {
     return {
       product: {},
+      work: [],
     };
+  },
+  async fetch() {
+    const id = this.$nuxt.context.params.id;
+    // console.log(id);
+    this.work = await this.$axios.$get("/api/work/" + id);
+    console.log(this.work);
+    // return { work };
   },
   created() {
     // Usually you would fetch the product from an API.

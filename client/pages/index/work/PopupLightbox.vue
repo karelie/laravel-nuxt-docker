@@ -5,7 +5,7 @@
         Close
       </button>
     </div>
-    <div class="PopupLightbox__content">
+    <div class="PopupLightbox__content relative">
       <slot />
     </div>
   </div>
@@ -29,5 +29,6 @@ export default {
 
 .PopupLightbox__content {
   margin-top: 0.5em;
+  max-width: 1400px;
 }
 </style>

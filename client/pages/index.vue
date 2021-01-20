@@ -1,13 +1,13 @@
 <template>
-  <div class="p-4">
-    <div class="my-12 mx-auto px-4 md:px-12">
+  <div class="">
+    <div id="works-list-first" class="mx-auto px-4 md:px-12 fixed">
       <ul
         class="flex flex-wrap content-start -mx-1 lg:-mx-4 infinite-container"
       >
         <li
           v-for="work in works"
           :key="`work-${work.id}`"
-          class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3 xl:w-1/4"
+          class="my-3 px-3 w-full lg:my-4 lg:px-2 md:w-1/2 lg:w-1/3 xl:w-1/3 2xl:w-1/4 3xl:w-1/5"
         >
           <article class="rounded-lg shadow-lg">
             <nuxt-link
@@ -52,12 +52,12 @@
                         </svg>
                       </button>
                       <ul
-                        class="z-10 absolute hidden bg-white text-gray-700 pt-1 group-hover:block"
+                        class="z-10 absolute hidden bg-white text-gray-700 rounded-md pt-1 shadow-lg group-hover:block"
                       >
                         <li
                           v-for="user in work.users"
                           :key="`work-${work.id}-user-${user.id}`"
-                          class=""
+                          class="border-b last:border-b-0"
                         >
                           <nuxt-link
                             :to="{ name: 'user-id', params: { id: user.id } }"
@@ -83,9 +83,10 @@
           </article>
         </li>
       </ul>
+      <client-only>
+        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+      </client-only>
     </div>
-
-    <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     <NuxtChild />
   </div>
 </template>
@@ -107,20 +108,26 @@ export default {
     // PopupOverlay,
     // PopupRouterView,
   },
+  mounted() {
+    console.log(this.$route.name);
+    const $worksListFirst = document.querySelector("#works-list-first");
+    $worksListFirst.classList.remove("fixed");
+  },
   data() {
     return {
       page: 1,
       works: [],
     };
   },
+
   methods: {
     infiniteHandler($state) {
       //web.phpで設定したルーティング
       axios
-        .get("/api/works?page=" + this.page, {
+        .get("/api/works", {
           params: {
             page: this.page,
-            per_page: 1,
+            per_page: this.per_page,
           },
         })
         .then(({ data }) => {

@@ -63,19 +63,14 @@ export default {
       this.scrollPosition = window.pageYOffset;
 
       // Disable scrolling on all devices (including iOS).
-      const $body = document.querySelector("body");
-      $body.style.overflow = "hidden";
-      $body.style.position = "fixed";
-      $body.style.top = `-${this.scrollPosition}px`;
-      $body.style.width = "100%";
+      const $worksListFirst = document.querySelector("#works-list-first");
+      $worksListFirst.classList.add("fixed");
+      $worksListFirst.style.top = `-${this.scrollPosition}px`;
     },
     enableScrolling() {
-      const $body = document.querySelector("body");
-      $body.style.removeProperty("overflow");
-      $body.style.removeProperty("position");
-      $body.style.removeProperty("top");
-      $body.style.removeProperty("width");
-
+      const $worksListFirst = document.querySelector("#works-list-first");
+      $worksListFirst.classList.remove("fixed");
+      $worksListFirst.style.removeProperty("top");
       window.scrollTo(0, this.scrollPosition);
     },
     async inert(status = true) {
@@ -102,11 +97,9 @@ export default {
 
 <style>
 .PopupWrap {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
 }
 
 .PopupWrap--centered {
