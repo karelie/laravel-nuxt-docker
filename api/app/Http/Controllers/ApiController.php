@@ -47,7 +47,7 @@ class ApiController extends Controller
 
     $id = $user->id;
     return Cache::remember('user.id-' . $id, 60 * 60 * 24, function () use ($id) { 
-        return User::with('works')->get()->find($id);
+        return User::with('works','works.users')->get()->find($id);
     }); 
     }
 }

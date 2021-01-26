@@ -1,19 +1,21 @@
 <template>
-  <div>
-    <h1>{{ user.name }}</h1>
-    <nuxt-link to="/">Index</nuxt-link>
-    <div id="works-list-first" class="mx-auto px-4 md:px-12 fixed">
+  <div class="">
+    <div id="works-list-first" class="mx-auto px-4 md:px-12">
+      <nuxt-link to="/">Index</nuxt-link>
       <ul
         class="flex flex-wrap content-start -mx-1 lg:-mx-4 infinite-container"
       >
         <li
-          v-for="work in user.works"
-          :key="`work-${work.id}`"
+          v-for="userWork in user.works"
+          :key="userWork.id"
           class="my-3 px-3 w-full lg:my-4 lg:px-2 md:w-1/2 lg:w-1/3 xl:w-1/3 2xl:w-1/4 3xl:w-1/5"
         >
           <article class="rounded-lg shadow-lg">
             <nuxt-link
-              :to="{ name: 'index-work-id', params: { id: work.id } }"
+              :to="{
+                name: 'user-uid-work-wid',
+                params: { uid: user.id, wid: userWork.id },
+              }"
               class="block w-full relative"
             >
               <img
@@ -25,7 +27,7 @@
                 class="w-full flex items-center justify-between leading-tight p-2 md:p-4 absolute bottom-0 left-0"
               >
                 <h3 class="text-lg text-white">
-                  {{ work.id }} - {{ work.title }}
+                  {{ userWork.id }} - {{ userWork.title }}
                 </h3>
               </header>
             </nuxt-link>
@@ -36,7 +38,7 @@
                 src="https://picsum.photos/32/32/?random"
               />
               <p class="ml-2 text-sm">
-                <template v-if="work.users.length > 1">
+                <template v-if="userWork.users.length > 1">
                   <div class="flex sm:items-center text-sm">
                     <div class="group inline-block relative">
                       <button
@@ -57,12 +59,15 @@
                         class="z-10 absolute hidden bg-white text-gray-700 rounded-md pt-1 shadow-lg group-hover:block"
                       >
                         <li
-                          v-for="user in user.works.users"
-                          :key="`work-${work.id}-user-${user.id}`"
+                          v-for="user in userWork.users"
+                          :key="`work-${userWork.id}-user-${user.id}`"
                           class="border-b last:border-b-0"
                         >
                           <nuxt-link
-                            :to="{ name: 'user-id', params: { id: user.id } }"
+                            :to="{
+                              name: 'user-uid',
+                              params: { uid: user.id },
+                            }"
                             class="rounded-t py-2 px-4 block whitespace-no-wrap"
                             >{{ user.name }}</nuxt-link
                           >
@@ -72,9 +77,9 @@
                   </div>
                 </template>
                 <template v-else>
-                  <li v-for="user in user.works.users" :key="user.id">
+                  <li v-for="user in userWork.users" :key="user.id">
                     <nuxt-link
-                      :to="{ name: 'user-id', params: { id: user.id } }"
+                      :to="{ name: 'user-uid', params: { uid: user.id } }"
                       class="rounded-t py-2 px-4 block whitespace-no-wrap"
                       >{{ user.name }}</nuxt-link
                     >
@@ -86,20 +91,39 @@
         </li>
       </ul>
     </div>
+    <NuxtChild />
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  head() {
+  head() {},
+  data() {
     return {
-      title: this.user.name,
+      page: 1,
+      user: [],
     };
   },
-  async asyncData(context) {
-    const id = context.params.id;
-    const user = await context.$axios.$get("/api/user/" + id);
-    return { user };
+  created() {
+    //web.phpで設定したルーティング
+    axios
+      .get("/api/user/" + this.$route.params.uid)
+      .then((data) => (this.user = data.data));
   },
+  // mounted() {
+  //   console.log(this.$route);
+  //   if (
+  //     this.$route.name == "user-id" ||
+  //     this.$route.name == "user-work-index"
+  //   ) {
+  //     const userId = this.$route.params.id;
+  //     axios
+  //       .get("/api/user/" + userId)
+  //       .then((response) => (this.user = response.data));
+  //     console.log(this.user);
+  //   }
+  // },
 };
 </script>

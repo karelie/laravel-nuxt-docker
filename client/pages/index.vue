@@ -1,6 +1,6 @@
 <template>
-  <div class="">
-    <div id="works-list-first" class="mx-auto px-4 md:px-12 fixed">
+  <div>
+    <div id="works-list-first" class="mx-auto px-4 md:px-12">
       <ul
         class="flex flex-wrap content-start -mx-1 lg:-mx-4 infinite-container"
       >
@@ -11,7 +11,10 @@
         >
           <article class="rounded-lg shadow-lg">
             <nuxt-link
-              :to="{ name: 'index-work-id', params: { id: work.id } }"
+              :to="{
+                name: 'work-wid',
+                params: { wid: work.id },
+              }"
               class="block w-full relative"
             >
               <img
@@ -60,7 +63,10 @@
                           class="border-b last:border-b-0"
                         >
                           <nuxt-link
-                            :to="{ name: 'user-id', params: { id: user.id } }"
+                            :to="{
+                              name: 'user-uid',
+                              params: { uid: user.id },
+                            }"
                             class="rounded-t py-2 px-4 block whitespace-no-wrap"
                             >{{ user.name }}</nuxt-link
                           >
@@ -72,7 +78,7 @@
                 <template v-else>
                   <li v-for="user in work.users" :key="user.id">
                     <nuxt-link
-                      :to="{ name: 'user-id', params: { id: user.id } }"
+                      :to="{ name: 'user-uid', params: { uid: user.id } }"
                       class="rounded-t py-2 px-4 block whitespace-no-wrap"
                       >{{ user.name }}</nuxt-link
                     >
@@ -104,14 +110,11 @@ import axios from "axios";
 export default {
   components: {
     InfiniteLoading,
-    // PopupLightbox,
-    // PopupOverlay,
-    // PopupRouterView,
   },
   mounted() {
     console.log(this.$route.name);
-    const $worksListFirst = document.querySelector("#works-list-first");
-    $worksListFirst.classList.remove("fixed");
+    // const $worksListFirst = document.querySelector("#works-list-first");
+    // $worksListFirst.classList.remove("fixed");
   },
   data() {
     return {

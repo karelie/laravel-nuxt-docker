@@ -1,36 +1,36 @@
 require('dotenv').config()
 
 export default {
-  router: {
-    extendRoutes(routes, resolve) {
-      routes.push({
-        name: "user-id",
-        path: "/user/:id?",
-        component: resolve(__dirname, 'pages/user/_id.vue'),
-        children: [{
-      path: "work/PopupBase",
-        component: resolve(__dirname, 'pages/index/work/PopupBase.vue'),
-      name: "user-work-PopupBase"
-    }, {
-      path: "work/PopupLightbox",
-        component: resolve(__dirname, 'pages/index/work/PopupLightbox.vue'),
-      name: "user-work-PopupLightbox"
-    }, {
-      path: "work/PopupOverlay",
-        component: resolve(__dirname, 'pages/index/work/PopupOverlay.vue'),
-      name: "user-work-PopupOverlay"
-    }, {
-      path: "work/PopupRouterView",
-        component: resolve(__dirname, 'pages/index/work/PopupRouterView.vue'),
-      name: "user-work-PopupRouterView"
-    }, {
-      path: "/work/:id?",
-        component: resolve(__dirname, 'pages/index/work/_id.vue'),
-      name: "user-work-id"
-    }]
-      })
-    }
-  },
+  // router: {
+  //   extendRoutes(routes, resolve) {
+  //     routes.push({
+  //       name: "user-id",
+  //       path: "/user/:id?",
+  //       component: resolve(__dirname, 'pages/user/_id.vue'),
+  //       children: [{
+  //     path: "work/PopupBase",
+  //       component: resolve(__dirname, 'pages/index/work/PopupBase.vue'),
+  //     name: "user-work-PopupBase"
+  //   }, {
+  //     path: "work/PopupLightbox",
+  //       component: resolve(__dirname, 'pages/index/work/PopupLightbox.vue'),
+  //     name: "user-work-PopupLightbox"
+  //   }, {
+  //     path: "work/PopupOverlay",
+  //       component: resolve(__dirname, 'pages/index/work/PopupOverlay.vue'),
+  //     name: "user-work-PopupOverlay"
+  //   }, {
+  //     path: "work/PopupRouterView",
+  //       component: resolve(__dirname, 'pages/index/work/PopupRouterView.vue'),
+  //     name: "user-work-PopupRouterView"
+  //   }, {
+  //     path: "/work/:id?",
+  //       component: resolve(__dirname, 'pages/index/work/_id.vue'),
+  //     name: "user-work-id"
+  //   }]
+  //     })
+  //   }
+  // },
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'client',
@@ -62,7 +62,9 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/router',
+    // '@nuxtjs/router-extras',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
